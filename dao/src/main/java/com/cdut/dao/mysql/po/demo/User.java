@@ -1,4 +1,4 @@
-package com.cdut.po.demo;
+package com.cdut.dao.mysql.po.demo;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
