@@ -10,9 +10,9 @@ import java.io.Serializable;
 /**
  * Created by king on 2017/9/10.
  */
-public class ComonRepositoryFatoryBean<T extends JpaRepository<Object, Serializable>> extends JpaRepositoryFactoryBean<T, Object, Serializable> {
+public class CommonRepositoryFactoryBean<T extends JpaRepository<Object, Serializable>> extends JpaRepositoryFactoryBean<T, Object, Serializable> {
 
-    public ComonRepositoryFatoryBean(Class<? extends T> repositoryInterface) {
+    public CommonRepositoryFactoryBean(Class<? extends T> repositoryInterface) {
         super(repositoryInterface);
     }
 

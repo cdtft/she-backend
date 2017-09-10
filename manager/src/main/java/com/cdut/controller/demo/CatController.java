@@ -1,9 +1,11 @@
 package com.cdut.controller.demo;
 
+import com.cdut.dao.mysql.po.demo.CatPo;
 import com.cdut.service.demo.CatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -18,8 +20,16 @@ public class CatController {
     private CatService catService;
 
     @RequestMapping("/hello/{name}")
-    public String sayHello(@PathVariable("name")String name) {
+    public String sayHello(@PathVariable("name") String name) {
 
         return catService.sayHello(name);
     }
+
+    @RequestMapping("/{username}/detail")
+    @ResponseBody
+    public CatPo findByName(@PathVariable("username")String username) {
+
+        return catService.findByUsername(username);
+    }
+
 }

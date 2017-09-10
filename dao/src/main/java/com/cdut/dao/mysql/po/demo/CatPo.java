@@ -3,13 +3,14 @@ package com.cdut.dao.mysql.po.demo;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * Created by king on 2017/9/10.
  */
 @Entity
-@Table(name="adm_user")
-public class User {
+@Table(name = "adm_cat")
+public class CatPo implements Serializable {
 
     @Id
     private String username;

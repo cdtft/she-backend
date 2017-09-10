@@ -12,7 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-@ComponentScan
+@ComponentScan(basePackages = "com.cdut")
 @EnableScheduling
 @EntityScan(basePackages = "com.cdut")
 public class ManagerApplication extends SpringBootServletInitializer implements EmbeddedServletContainerCustomizer {
