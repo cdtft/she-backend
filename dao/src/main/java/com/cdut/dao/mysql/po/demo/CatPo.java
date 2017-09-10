@@ -1,9 +1,8 @@
-package com.cdut.po.demo;
+package com.cdut.dao.mysql.po.demo;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Timestamp;
 
 /**
  * Created by king on 2017/9/10.
