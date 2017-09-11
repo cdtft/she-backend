@@ -19,6 +19,7 @@ public class RedisTokenManager implements TokenManager {
 
     private static final Logger logger = Logger.getLogger(RedisTokenManager.class);
 
+    @Autowired
     private RedisTemplate redisTemplate;
 
     @Autowired
