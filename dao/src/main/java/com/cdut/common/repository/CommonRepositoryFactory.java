@@ -1,23 +1,25 @@
-package com.cdut.common;
+package com.cdut.common.repository;
 
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
 import org.springframework.data.repository.core.RepositoryMetadata;
 
 import javax.persistence.EntityManager;
 
-/**
- * Created by king on 2017/9/10.
- */
 public class CommonRepositoryFactory extends JpaRepositoryFactory {
 
     public CommonRepositoryFactory(EntityManager entityManager) {
-
         super(entityManager);
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.springframework.data.repository.support.RepositoryFactorySupport#
+     * getRepositoryBaseClass()
+     */
     @Override
     protected Class<?> getRepositoryBaseClass(RepositoryMetadata metadata) {
-
-        return super.getRepositoryBaseClass(metadata);
+        return CommonJpaRepositoryBean.class;
     }
 }

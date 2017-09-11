@@ -1,18 +1,19 @@
 package com.cdut.dao.mysql.po.demo;
 
+import com.cdut.common.entity.BaseEntity;
+
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 /**
  * Created by king on 2017/9/10.
  */
 @Entity
 @Table(name = "adm_cat")
-public class CatPo implements Serializable {
+public class CatPo extends BaseEntity {
 
-    @Id
+    private static final long serialVersionUID = -3543103751532039034L;
+
     private String username;
 
     private String password;
