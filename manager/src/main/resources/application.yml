@@ -26,3 +26,11 @@ spring:
     properties:
       hibernate:
         enable_lazy_load_no_trans: true
+jedis:
+  pool:
+    host: 127.0.0.1
+    port: 6379
+    config:
+      maxTotal: 100
+      maxIdle: 10
+      maxWaitMillis: 100000

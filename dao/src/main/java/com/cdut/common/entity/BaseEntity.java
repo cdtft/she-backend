@@ -2,13 +2,15 @@ package com.cdut.common.entity;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
- * 所有的po基础类, 继承该类的po不会自动生成id
+ * 所有的po基础类, 继承该类的po
  * Created by king on 2017/9/11.
  */
 @SuppressWarnings("serial")
@@ -16,6 +18,7 @@ import java.sql.Timestamp;
 public class BaseEntity extends BasePo<Long> implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Timestamp createTimestamp = new Timestamp(System.currentTimeMillis());

@@ -21,8 +21,6 @@ public class CatController {
     @Autowired
     private CatService catService;
 
-    @Autowired
-    private ProductRepository productRepository;
 
     @RequestMapping("/hello/{name}")
     public String sayHello(@PathVariable("name") String name) {
@@ -35,13 +33,6 @@ public class CatController {
     public CatPo findByName(@PathVariable("username")String username) {
 
         return catService.findByUsername(username);
-    }
-
-    @RequestMapping("/findProduct/{name}")
-    @ResponseBody
-    public ProductPo findById(@PathVariable("name")String name) {
-
-        return productRepository.findByName(name);
     }
 
 }
