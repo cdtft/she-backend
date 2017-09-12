@@ -1,7 +1,5 @@
 package com.cdut.common.entity;
 
-import com.cdut.common.myenum.ResultStatus;
-
 /**
  * rest接口返回的统一对象
  * Created by king on 2017/9/11.
@@ -19,29 +17,23 @@ public class JsonResult {
     private String msg;
 
     /**
-     * 状态 false:
+     * 状态 code值:成功状态值为0，失败为其他值
      */
-    private Boolean status;
+    private String code;
 
     public JsonResult() {
 
     }
 
-    public JsonResult(Object data, String msg, Boolean status) {
+    public JsonResult(Object data, String msg, String code) {
         this.data = data;
         this.msg = msg;
-        this.status = status;
+        this.code = code;
     }
 
-    public JsonResult(Boolean status, String msg) {
+    public JsonResult(String msg, String code) {
         this.msg = msg;
-        this.status = status;
-    }
-
-
-    public JsonResult(Object data, Boolean status) {
-        this.data = data;
-        this.status = status;
+        this.code = code;
     }
 
     public Object getData() {
@@ -52,12 +44,12 @@ public class JsonResult {
         this.data = data;
     }
 
-    public Boolean getStatus() {
-        return status;
+    public String getCode() {
+        return code;
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getMsg() {

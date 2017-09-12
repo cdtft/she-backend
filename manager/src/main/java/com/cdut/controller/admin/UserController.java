@@ -27,7 +27,8 @@ public class UserController {
     public JsonResult login(@RequestParam("username") String username, @RequestParam("password") String password) {
 
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
-            return new JsonResult(ResultStatus.FALI.getStatus(), "用户名或密码为空");
+
+            return new JsonResult("用户名或密码为空", ResultStatus.FAIL.getStatus());
         }
         return userService.login(username, password);
     }
