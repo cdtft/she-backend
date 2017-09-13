@@ -42,7 +42,11 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
 
     @Override
     public JsonResult usernameIsExist(String username) {
-        return null;
+        User user =  userRepository.findOne(username);
+        if (user == null) {
+            return new JsonResult(null, "该用户名可用", ResultStatus.SUCCESS.getStatus());
+        }
+        return new JsonResult(null, "该用户名已存在", ResultStatus.FAIL.getStatus());
     }
 
     @Override

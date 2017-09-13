@@ -3,6 +3,7 @@ package com.cdut.controller.admin;
 import com.cdut.common.AbstractBaseService;
 import com.cdut.common.entity.JsonResult;
 import com.cdut.common.myenum.ResultStatus;
+import com.cdut.dao.mysql.vo.admin.UserRequestVo;
 import com.cdut.service.admin.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +20,18 @@ public class UserController {
 
     /**
      * 用户登陆方法,执行成功后data中封装了UserToken信息
-     * @param username
-     * @param password
+     * @param
+     * @param
      * @return
      */
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public JsonResult login(@RequestParam("username") String username, @RequestParam("password") String password) {
+    public JsonResult login(@RequestBody UserRequestVo vo) {
 
-        if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
+        if (StringUtils.isBlank(vo.getUsername()) || StringUtils.isBlank(vo.getPassword())) {
 
             return new JsonResult("用户名或密码为空", ResultStatus.FAIL.getStatus());
         }
-        return userService.login(username, password);
+        return userService.login(vo.getUsername(), vo.getPassword());
     }
 
 }
