@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: she-manager
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: king
+    url: jdbc:mysql://127.0.0.1:3306/she?characterEncoding=utf-8
+    dbcp2:
+      initial-size: 5
+      max-total: 10
+      min-idle: 1
+      time-between-eviction-runs-millis: 360000
+      test-on-borrow: true
+      test-on-return: false
+      test-while-idle: true
+      validation-query: SELECT 1
+
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    database: mysql
+    open-in-view: true
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+  redis:
+    host: 127.0.0.1
+    port: 6379
+jedis:
+  pool:
+    host: 127.0.0.1
+    port: 6379
+    config:
+      maxTotal: 100
+      maxIdle: 10
+      maxWaitMillis: 100000

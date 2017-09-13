@@ -6,6 +6,7 @@ import com.cdut.common.myenum.ResultStatus;
 import com.cdut.common.token.TokenManager;
 import com.cdut.dao.mysql.po.admin.User;
 import com.cdut.dao.mysql.repository.admin.UserRepository;
+import com.cdut.dao.mysql.vo.admin.UserRequestVo;
 import com.cdut.dao.redis.ro.admin.UserToken;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,20 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
                 "_" +
                 token.getToken();
         return new JsonResult(authorization, "登陆成功", ResultStatus.SUCCESS.getStatus());
+    }
+
+    @Override
+    public JsonResult usernameIsExist(String username) {
+        return null;
+    }
+
+    @Override
+    public JsonResult register(UserRequestVo vo) {
+        return null;
+    }
+
+    @Override
+    public JsonResult resetPassword(UserRequestVo vo) {
+        return null;
     }
 }
