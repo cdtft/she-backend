@@ -13,6 +13,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 import javax.servlet.Filter;
 
 @SpringBootApplication
@@ -21,6 +23,7 @@ import javax.servlet.Filter;
 @ComponentScan(basePackages = "com.cdut")
 @EnableScheduling
 @EntityScan(basePackages = "com.cdut")
+@EnableTransactionManagement
 public class ManagerApplication extends SpringBootServletInitializer implements EmbeddedServletContainerCustomizer {
 
 	public static void main(String[] args) {
