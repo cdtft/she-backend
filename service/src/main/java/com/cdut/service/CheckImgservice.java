@@ -1,6 +1,7 @@
 package com.cdut.service;
 
-import org.springframework.http.HttpRequest;
+
+import org.springframework.stereotype.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -15,6 +16,7 @@ import static org.springframework.boot.logging.LoggingSystem.NONE;
 /**
  * Created by xieqiang_daye on 2017/9/13.
  */
+@org.springframework.stereotype.Component
 public class CheckImgservice {
     public String execute(HttpServletRequest request,HttpServletResponse response) throws Exception {
         int width = 120;//确定宽高
