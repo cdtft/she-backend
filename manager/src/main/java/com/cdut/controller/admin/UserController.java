@@ -5,10 +5,14 @@ import com.cdut.common.AbstractBaseService;
 import com.cdut.common.entity.JsonResult;
 import com.cdut.common.myenum.ResultStatus;
 import com.cdut.dao.mysql.vo.admin.UserRequestVo;
+import com.cdut.service.CheckImgservice;
 import com.cdut.service.admin.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by king on 2017/9/11.
@@ -19,6 +23,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private CheckImgservice checkImgservice;
 
     /**
      * 用户登陆方法,执行成功后data中封装了UserToken信息
@@ -72,5 +78,12 @@ public class UserController {
         return userService.resetPassword(userId, newPassword);
     }
 
+    /*
+    * 验证码接口
+    * */
+    @RequestMapping(value = "/varifycode")
+    public void  Varifucode(HttpServletRequest request, HttpServletResponse response)throws Exception{
+        checkImgservice.execute(request,response);
+    }
     //TODO 退出登陆接口
 }
