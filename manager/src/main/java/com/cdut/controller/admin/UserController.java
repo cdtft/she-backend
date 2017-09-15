@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by king on 2017/9/11.
  */
 @RestController
-@RequestMapping("api/v1/user")
+@RequestMapping("v1/api/user")
 public class UserController {
 
     @Autowired

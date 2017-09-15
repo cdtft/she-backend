@@ -24,16 +24,11 @@ import javax.servlet.Filter;
 @EnableScheduling
 @EntityScan(basePackages = "com.cdut")
 @EnableTransactionManagement
-public class ManagerApplication extends SpringBootServletInitializer implements EmbeddedServletContainerCustomizer {
+public class ManagerApplication {
 
 	public static void main(String[] args) {
 
 		SpringApplication.run(ManagerApplication.class, args);
-	}
-
-	@Override
-	public void customize(ConfigurableEmbeddedServletContainer configurableEmbeddedServletContainer) {
-
 	}
 
 	@Bean

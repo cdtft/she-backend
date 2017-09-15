@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+
 /**
  *
  * Created by king on 2017/9/11.
@@ -56,6 +58,7 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
     public JsonResult register(UserRequestVo vo) {
         User user = new UserReqVo2User().apply(vo);
         user.setId(idService.nextId());
+        //user.setCreateTime();
         userRepository.save(user);
         return new JsonResult(null, "注册成功", "200");
     }

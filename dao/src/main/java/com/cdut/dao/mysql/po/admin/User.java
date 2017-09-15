@@ -7,13 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
  * Created by king on 2017/9/11.
  */
 @Entity
 @Table(name = "adm_user")
-public class User implements Serializable{
+public class User implements Serializable {
 
     private static final long serialVersionUID = 2860143348597400920L;
 
@@ -28,6 +29,14 @@ public class User implements Serializable{
 
     @Column(length = 40)
     private String qqNum;
+
+    @Column(length = 40)
+    private String school;
+
+    @Column(length = 40)
+    private String email;
+
+    private Timestamp createTime;
 
     public Long getId() {
         return id;
@@ -61,4 +70,27 @@ public class User implements Serializable{
         this.qqNum = qqNum;
     }
 
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
 }
