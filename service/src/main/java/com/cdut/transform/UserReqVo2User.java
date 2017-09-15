@@ -20,6 +20,8 @@ public class UserReqVo2User implements Function<UserRequestVo, User> {
             user.setUsername(vo.getUsername());
             user.setPassword(vo.getPassword());
             user.setQqNum(vo.getQqNum());
+            user.setEmail(vo.getEmail());
+            user.setSchool(vo.getSchool());
             return user;
         }
         return null;

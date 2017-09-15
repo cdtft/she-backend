@@ -4,6 +4,7 @@ import com.cdut.common.repository.CommonJpaRepository;
 import com.cdut.dao.mysql.po.admin.User;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -16,6 +17,6 @@ public interface UserRepository extends CommonJpaRepository<User, String>, UserD
 
     User findById(String id);
 
-    @Query("update user set password = ?2 where id = ?1")
-    void updatePasswordById(String id, String password);
+    @Query("update User set password = :password where id = :id")
+    void updatePasswordById(@Param("id") String id, @Param("password") String password);
 }
