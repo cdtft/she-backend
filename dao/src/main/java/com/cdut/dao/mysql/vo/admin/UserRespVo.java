@@ -1,51 +1,30 @@
-package com.cdut.dao.mysql.po.admin;
+package com.cdut.dao.mysql.vo.admin;
 
-import com.cdut.common.entity.BaseEntity;
 import com.cdut.common.myenum.CdutCommonStatus;
 
-import javax.annotation.Nullable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
- * Created by king on 2017/9/11.
+ *
+ * Created by king on 2017/9/15.
  */
-@Entity
-@Table(name = "adm_user")
-public class User implements Serializable {
-
-    private static final long serialVersionUID = 2860143348597400920L;
+public class UserRespVo {
 
     private Long id;
 
-    @Id
-    @Column(length = 40)
     private String username;
 
-    @Column(length = 40)
     private String password;
 
-    @Column(length = 40)
     private String qqNum;
 
-    @Column(length = 40)
     private String school;
 
-    @Column(length = 40)
     private String email;
 
-    private Timestamp createTime = new Timestamp(System.currentTimeMillis());
+    private Timestamp createTime;
 
-    /**
-     * 不能为空，默认为可用
-     */
-    @Column(nullable = false)
-    private CdutCommonStatus commonStatus = CdutCommonStatus.ENABLE;
-
+    private CdutCommonStatus commonStatus;
 
     public Long getId() {
         return id;

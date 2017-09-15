@@ -37,5 +37,11 @@ public interface UserService {
      */
     JsonResult resetPassword(String userId, String newPassword);
 
+    /**
+     * 查询所有user
+     * @return
+     */
+    JsonResult findAll();
+
 
 }

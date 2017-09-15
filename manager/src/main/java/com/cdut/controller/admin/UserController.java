@@ -72,5 +72,16 @@ public class UserController {
         return userService.resetPassword(userId, newPassword);
     }
 
+
+    /**
+     * 对管理员用户开放，查找所用的用户（还未验证该用户是否为拥有管理员权限）
+     * @return
+     */
+    @Authorization
+    @RequestMapping(value = "/findAll")
+    public JsonResult findAll() {
+        return userService.findAll();
+    }
+
     //TODO 退出登陆接口
 }
