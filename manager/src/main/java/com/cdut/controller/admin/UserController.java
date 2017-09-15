@@ -23,6 +23,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
     @Autowired
     private CheckImgservice checkImgservice;
 
@@ -74,16 +75,28 @@ public class UserController {
      */
     @Authorization
     @RequestMapping(value = "/resetPassword/{newPassword}")
-    public JsonResult restPassword(@RequestParam("userId") String userId, @PathVariable("newPassword") String newPassword) {
+    public JsonResult resetPassword(@RequestParam("userId") String userId, @PathVariable("newPassword") String newPassword) {
         return userService.resetPassword(userId, newPassword);
+    }
+
+
+    /**
+     * 对管理员用户开放，查找所用的用户（还未验证该用户是否为拥有管理员权限）
+     *
+     * @return
+     */
+    @Authorization
+    @RequestMapping(value = "/findAll")
+    public JsonResult findAll() {
+        return userService.findAll();
     }
 
     /*
     * 验证码接口
     * */
     @RequestMapping(value = "/varifycode")
-    public void  Varifucode(HttpServletRequest request, HttpServletResponse response)throws Exception{
-        checkImgservice.execute(request,response);
+    public void Varifucode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        checkImgservice.execute(request, response);
     }
     //TODO 退出登陆接口
 }

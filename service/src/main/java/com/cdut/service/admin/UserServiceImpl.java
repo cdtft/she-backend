@@ -7,14 +7,18 @@ import com.cdut.common.token.TokenManager;
 import com.cdut.dao.mysql.po.admin.User;
 import com.cdut.dao.mysql.repository.admin.UserRepository;
 import com.cdut.dao.mysql.vo.admin.UserRequestVo;
+import com.cdut.dao.mysql.vo.admin.UserRespVo;
 import com.cdut.dao.redis.ro.admin.UserToken;
+import com.cdut.transform.User2UserRespVo;
 import com.cdut.transform.UserReqVo2User;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  *
@@ -68,5 +72,12 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
     public JsonResult resetPassword(String userId, String newPassword) {
         userRepository.updatePasswordById(userId, newPassword);
         return new JsonResult(null, "密码修改成功", "200");
+    }
+
+    @Override
+    public JsonResult findAll() {
+        List<User> users = userRepository.findAll();
+        List<UserRespVo> userRespVos = Lists.transform(users, new User2UserRespVo());
+        return new JsonResult(userRespVos, "获取所用的用户", "200");
     }
 }
