@@ -36,7 +36,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         UserToken userToken = tokenManager.getToken(authorization);
         if (tokenManager.checkToken(userToken)) {
             //token解析成功，将userId放在request中
-            request.setAttribute("USER_ID", userToken.getId());
+            request.setAttribute("userId", userToken.getId());
         }
         //验证失败,返回401未授权(controller中的方法使用的Authorization注解)
         if (method.getAnnotation(Authorization.class) != null) {

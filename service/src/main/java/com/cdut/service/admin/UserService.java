@@ -35,7 +35,7 @@ public interface UserService {
      * 修改密码
      * @return
      */
-    JsonResult resetPassword(UserRequestVo vo);
+    JsonResult resetPassword(String userId, String newPassword);
 
 
 }

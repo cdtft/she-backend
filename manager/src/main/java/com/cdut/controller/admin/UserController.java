@@ -1,5 +1,6 @@
 package com.cdut.controller.admin;
 
+import com.cdut.annotation.Authorization;
 import com.cdut.common.AbstractBaseService;
 import com.cdut.common.entity.JsonResult;
 import com.cdut.common.myenum.ResultStatus;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * Created by king on 2017/9/11.
  */
 @RestController
+@RequestMapping("api/v1/user")
 public class UserController {
 
     @Autowired
@@ -20,6 +22,7 @@ public class UserController {
 
     /**
      * 用户登陆方法,执行成功后data中封装了UserToken信息
+     *
      * @param
      * @param
      * @return
@@ -34,4 +37,40 @@ public class UserController {
         return userService.login(vo.getUsername(), vo.getPassword());
     }
 
+    /**
+     * 用户注册
+     *
+     * @param vo
+     * @return
+     */
+    @RequestMapping(value = "register")
+    public JsonResult register(@RequestBody UserRequestVo vo) {
+        return userService.register(vo);
+    }
+
+    /**
+     * 检查用户名是否被注册
+     *
+     * @param username
+     * @return
+     */
+    @RequestMapping(value = "/checkname/{username}")
+    public JsonResult checkUsername(@PathVariable("username") String username) {
+        return userService.usernameIsExist(username);
+    }
+
+    /**
+     * 只用传newPassword, userId在用户登陆后就放在了request中（该接口需要登陆验证）
+     *
+     * @param userId
+     * @param newPassword
+     * @return
+     */
+    @Authorization
+    @RequestMapping(value = "/resetPassword/{newPassword}")
+    public JsonResult restPassword(@RequestParam("userId") String userId, @PathVariable("newPassword") String newPassword) {
+        return userService.resetPassword(userId, newPassword);
+    }
+
+    //TODO 退出登陆接口
 }

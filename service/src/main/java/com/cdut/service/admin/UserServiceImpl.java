@@ -8,9 +8,11 @@ import com.cdut.dao.mysql.po.admin.User;
 import com.cdut.dao.mysql.repository.admin.UserRepository;
 import com.cdut.dao.mysql.vo.admin.UserRequestVo;
 import com.cdut.dao.redis.ro.admin.UserToken;
+import com.cdut.transform.UserReqVo2User;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -49,13 +51,19 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
         return new JsonResult(null, "该用户名已存在", ResultStatus.FAIL.getStatus());
     }
 
+    @Transactional
     @Override
     public JsonResult register(UserRequestVo vo) {
-        return null;
+        User user = new UserReqVo2User().apply(vo);
+        user.setId(idService.nextId());
+        userRepository.save(user);
+        return new JsonResult(null, "注册成功", "200");
     }
 
+    @Transactional
     @Override
-    public JsonResult resetPassword(UserRequestVo vo) {
-        return null;
+    public JsonResult resetPassword(String userId, String newPassword) {
+        userRepository.updatePasswordById(userId, newPassword);
+        return new JsonResult(null, "密码修改成功", "200");
     }
 }
