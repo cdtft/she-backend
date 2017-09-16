@@ -30,9 +30,6 @@ public class UserController {
     /**
      * 用户登陆方法,执行成功后data中封装了UserToken信息
      *
-     * @param
-     * @param
-     * @return
      */
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public JsonResult login(@RequestBody UserRequestVo vo) {

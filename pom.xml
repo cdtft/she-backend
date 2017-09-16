@@ -19,6 +19,8 @@
         <module>manager</module>
         <module>dao</module>
         <module>service</module>
+        <module>center-service</module>
+        <module>service-feign</module>
     </modules>
 
 
