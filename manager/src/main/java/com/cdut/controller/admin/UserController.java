@@ -29,7 +29,6 @@ public class UserController {
 
     /**
      * 用户登陆方法,执行成功后data中封装了UserToken信息
-     *
      */
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public JsonResult login(@RequestBody UserRequestVo vo) {
@@ -88,11 +87,11 @@ public class UserController {
         return userService.findAll();
     }
 
-    /*
-    * 验证码接口
-    * */
-    @RequestMapping(value = "/varifycode")
-    public void Varifucode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    /**
+     * 验证码接口
+     */
+    @RequestMapping(value = "/verifyCode")
+    public void verifyCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
         checkImgservice.execute(request, response);
     }
     //TODO 退出登陆接口

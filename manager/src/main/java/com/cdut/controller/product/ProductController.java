@@ -1,7 +1,7 @@
-package com.cdut.controller.demo;
+package com.cdut.controller.product;
 
-import com.cdut.dao.mysql.po.demo.ProductPo;
-import com.cdut.service.demo.ProductService;
+import com.cdut.dao.mysql.po.product.ProductPo;
+import com.cdut.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

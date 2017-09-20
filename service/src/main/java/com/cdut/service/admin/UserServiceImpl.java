@@ -38,7 +38,7 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
 
         User user = userRepository.findByUsername(username);
         if (user == null || !StringUtils.equals(user.getPassword(), password)) {
-            return new JsonResult("未找到该用户", ResultStatus.FAIL.getStatus());
+            return new JsonResult("密码或用户名不正确", ResultStatus.FAIL.getStatus());
         }
         logger.info("创建token信息");
         UserToken token = tokenManager.createTokenUser(user.getId());

@@ -1,4 +1,4 @@
-package com.cdut.dao.mysql.repository.demo;
+package com.cdut.dao.mysql.repository.product;
 
 
 /**
