@@ -91,7 +91,7 @@ public class UserController {
     /*
     * 验证码接口
     * */
-    @RequestMapping(value = "/varifycode")
+    @RequestMapping(value = "/varifycode", method = RequestMethod.GET)
     public void Varifucode(HttpServletRequest request, HttpServletResponse response) throws Exception {
         checkImgservice.execute(request, response);
     }
