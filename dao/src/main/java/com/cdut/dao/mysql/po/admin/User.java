@@ -2,14 +2,13 @@ package com.cdut.dao.mysql.po.admin;
 
 import com.cdut.common.entity.BaseEntity;
 import com.cdut.common.myenum.CdutCommonStatus;
+import com.cdut.dao.mysql.po.product.ProductPo;
 
 import javax.annotation.Nullable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by king on 2017/9/11.
@@ -44,7 +43,23 @@ public class User implements Serializable {
      * 不能为空，默认为可用
      */
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private CdutCommonStatus commonStatus = CdutCommonStatus.ENABLE;
+
+    /**
+     * 对应的角色
+     */
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "cdut_user_role",
+            joinColumns = {@JoinColumn(name = "username", referencedColumnName = "username")},
+            inverseJoinColumns = {@JoinColumn(name = "roleId", referencedColumnName = "id")},
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"username", "roleId"})}
+    )
+    private List<Role> roles;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    private List<ProductPo> productPoList;
 
 
     public Long getId() {
@@ -109,5 +124,13 @@ public class User implements Serializable {
 
     public void setCommonStatus(CdutCommonStatus commonStatus) {
         this.commonStatus = commonStatus;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

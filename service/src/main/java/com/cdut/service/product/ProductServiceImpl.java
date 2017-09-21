@@ -1,6 +1,6 @@
-package com.cdut.service.demo;
+package com.cdut.service.product;
 
-import com.cdut.dao.mysql.po.demo.ProductPo;
+import com.cdut.dao.mysql.po.product.ProductPo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

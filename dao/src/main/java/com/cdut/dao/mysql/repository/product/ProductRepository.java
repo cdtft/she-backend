@@ -1,6 +1,6 @@
-package com.cdut.dao.mysql.repository.demo;
+package com.cdut.dao.mysql.repository.product;
 
-import com.cdut.dao.mysql.po.demo.ProductPo;
+import com.cdut.dao.mysql.po.product.ProductPo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
