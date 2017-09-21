@@ -42,7 +42,7 @@ public class UserController {
     }
 
     /**
-     * 推出登陆
+     * 退出登陆
      * @param loginUser
      * @return
      */

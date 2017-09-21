@@ -36,7 +36,7 @@ public class RedisTokenManager implements TokenManager {
         UserToken userToken = new UserToken(userId, token);
         //存到redis并设置过期时间72小时过期
         //todo 将时间提取出来
-        redisTemplate.boundValueOps(userId).set(token, 72, TimeUnit.HOURS);
+        redisTemplate.boundValueOps(userId).set(token, 30, TimeUnit.MINUTES);
         return userToken;
     }
 
@@ -50,7 +50,7 @@ public class RedisTokenManager implements TokenManager {
             return false;
         }
         //验证成功存重新入redis延长token信息过期时间
-        redisTemplate.boundValueOps(tokenUser.getId()).expire( 72, TimeUnit.HOURS);
+        redisTemplate.boundValueOps(tokenUser.getId()).expire( 30, TimeUnit.MINUTES);
         return true;
     }
 
