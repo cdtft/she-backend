@@ -17,7 +17,7 @@ import static org.springframework.boot.logging.LoggingSystem.NONE;
  * Created by xieqiang_daye on 2017/9/13.
  */
 @org.springframework.stereotype.Component
-public class CheckImgservice {
+public class CheckImgService {
     public String execute(HttpServletRequest request,HttpServletResponse response) throws Exception {
         int width = 100;//确定宽高
         int height = 36;

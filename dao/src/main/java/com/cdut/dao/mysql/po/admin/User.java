@@ -133,4 +133,12 @@ public class User implements Serializable {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+
+    public List<ProductPo> getProductPoList() {
+        return productPoList;
+    }
+
+    public void setProductPoList(List<ProductPo> productPoList) {
+        this.productPoList = productPoList;
+    }
 }

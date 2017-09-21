@@ -1,6 +1,7 @@
 package com.cdut.dao.mysql.po.product;
 
 import com.cdut.common.entity.BaseEntity;
+import com.cdut.dao.mysql.po.admin.User;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,6 +38,9 @@ public class ProductPo extends BaseEntity {
     @OneToOne
     private Order order;
 
+    @OneToOne
+    private User user;
+
 
     public String getName() {
         return name;
@@ -68,5 +72,13 @@ public class ProductPo extends BaseEntity {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

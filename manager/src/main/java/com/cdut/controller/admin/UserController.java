@@ -1,11 +1,10 @@
 package com.cdut.controller.admin;
 
 import com.cdut.annotation.Authorization;
-import com.cdut.common.AbstractBaseService;
 import com.cdut.common.entity.JsonResult;
 import com.cdut.common.myenum.ResultStatus;
 import com.cdut.dao.mysql.vo.admin.UserRequestVo;
-import com.cdut.service.CheckImgservice;
+import com.cdut.service.CheckImgService;
 import com.cdut.service.admin.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +17,19 @@ import javax.servlet.http.HttpServletResponse;
  * Created by king on 2017/9/11.
  */
 @RestController
-@RequestMapping("v1/api/user")
+@RequestMapping("v1/api")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
     @Autowired
-    private CheckImgservice checkImgservice;
+    private CheckImgService checkImgService;
 
     /**
      * 用户登陆方法,执行成功后data中封装了UserToken信息
      */
-    @RequestMapping(value = "login", method = RequestMethod.POST)
+    @RequestMapping(value = "/session", method = RequestMethod.POST)
     public JsonResult login(@RequestBody UserRequestVo vo) {
 
         if (StringUtils.isBlank(vo.getUsername()) || StringUtils.isBlank(vo.getPassword())) {
@@ -46,7 +45,7 @@ public class UserController {
      * @param vo
      * @return
      */
-    @RequestMapping(value = "register")
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
     public JsonResult register(@RequestBody UserRequestVo vo) {
         return userService.register(vo);
     }
@@ -54,10 +53,10 @@ public class UserController {
     /**
      * 检查用户名是否被注册
      *
-     * @param username
+     * @param username user表主键
      * @return
      */
-    @RequestMapping(value = "/checkname/{username}")
+    @RequestMapping(value = "/user/{username}", method = RequestMethod.POST)
     public JsonResult checkUsername(@PathVariable("username") String username) {
         return userService.usernameIsExist(username);
     }
@@ -70,7 +69,7 @@ public class UserController {
      * @return
      */
     @Authorization
-    @RequestMapping(value = "/resetPassword/{newPassword}")
+    @RequestMapping(value = "/user/{newPassword}", method = RequestMethod.PUT)
     public JsonResult resetPassword(@RequestParam("userId") String userId, @PathVariable("newPassword") String newPassword) {
         return userService.resetPassword(userId, newPassword);
     }
@@ -82,7 +81,7 @@ public class UserController {
      * @return
      */
     @Authorization
-    @RequestMapping(value = "/findAll")
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
     public JsonResult findAll() {
         return userService.findAll();
     }
@@ -92,7 +91,7 @@ public class UserController {
      */
     @RequestMapping(value = "/verifyCode")
     public void verifyCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        checkImgservice.execute(request, response);
+        checkImgService.execute(request, response);
     }
     //TODO 退出登陆接口
 }

@@ -21,6 +21,7 @@
         <module>service</module>
         <module>center-service</module>
         <module>service-feign</module>
+        <module>soa-product</module>
     </modules>
 
 
