@@ -15,8 +15,8 @@ public interface UserRepository extends CommonJpaRepository<User, String>, UserD
 
     User findByUsername(String username);
 
-    User findById(String id);
+    User findById(Long id);
 
     @Query("update User set password = :password where id = :id")
-    void updatePasswordById(@Param("id") String id, @Param("password") String password);
+    void updatePasswordById(@Param("id") Long id, @Param("password") String password);
 }

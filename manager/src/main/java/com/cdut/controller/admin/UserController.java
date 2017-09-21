@@ -1,8 +1,10 @@
 package com.cdut.controller.admin;
 
 import com.cdut.annotation.Authorization;
+import com.cdut.annotation.LoginUser;
 import com.cdut.common.entity.JsonResult;
 import com.cdut.common.myenum.ResultStatus;
+import com.cdut.dao.mysql.po.admin.User;
 import com.cdut.dao.mysql.vo.admin.UserRequestVo;
 import com.cdut.service.CheckImgService;
 import com.cdut.service.admin.UserService;
@@ -40,6 +42,17 @@ public class UserController {
     }
 
     /**
+     * 推出登陆
+     * @param loginUser
+     * @return
+     */
+    @Authorization
+    @RequestMapping(value = "/session", method = RequestMethod.DELETE)
+    public JsonResult logout(@LoginUser User loginUser) {
+        return userService.logout(loginUser);
+    }
+
+    /**
      * 用户注册
      *
      * @param vo
@@ -64,14 +77,14 @@ public class UserController {
     /**
      * 只用传newPassword, userId在用户登陆后就放在了request中（该接口需要登陆验证）
      *
-     * @param userId
+     * @param user
      * @param newPassword
      * @return
      */
     @Authorization
     @RequestMapping(value = "/user/{newPassword}", method = RequestMethod.PUT)
-    public JsonResult resetPassword(@RequestParam("userId") String userId, @PathVariable("newPassword") String newPassword) {
-        return userService.resetPassword(userId, newPassword);
+    public JsonResult resetPassword(@LoginUser User user, @PathVariable("newPassword") String newPassword) {
+        return userService.resetPassword(user.getId(), newPassword);
     }
 
 
@@ -93,5 +106,5 @@ public class UserController {
     public void verifyCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
         checkImgService.execute(request, response);
     }
-    //TODO 退出登陆接口
+
 }

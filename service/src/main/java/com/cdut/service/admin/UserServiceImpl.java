@@ -49,6 +49,12 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
     }
 
     @Override
+    public JsonResult logout(User user) {
+        tokenManager.deleteToken(user.getId());
+        return new JsonResult("用户退出登陆", "200");
+    }
+
+    @Override
     public JsonResult usernameIsExist(String username) {
         User user =  userRepository.findOne(username);
         if (user == null) {
@@ -62,14 +68,13 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
     public JsonResult register(UserRequestVo vo) {
         User user = new UserReqVo2User().apply(vo);
         user.setId(idService.nextId());
-        //user.setCreateTime();
         userRepository.save(user);
         return new JsonResult(null, "注册成功", "200");
     }
 
     @Transactional
     @Override
-    public JsonResult resetPassword(String userId, String newPassword) {
+    public JsonResult resetPassword(Long userId, String newPassword) {
         userRepository.updatePasswordById(userId, newPassword);
         return new JsonResult(null, "密码修改成功", "200");
     }
