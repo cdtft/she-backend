@@ -89,7 +89,7 @@ public class UserController {
     /**
      * 验证码接口
      */
-    @RequestMapping(value = "/verifyCode")
+    @RequestMapping(value = "/verifyCode", method = RequestMethod.GET)
     public void verifyCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
         checkImgService.execute(request, response);
     }
