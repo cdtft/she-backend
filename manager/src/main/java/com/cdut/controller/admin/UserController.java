@@ -87,19 +87,11 @@ public class UserController {
         return userService.findAll();
     }
 
-<<<<<<< HEAD
-    /*
-    * 验证码接口
-    * */
-    @RequestMapping(value = "/varifycode", method = RequestMethod.GET)
-    public void Varifucode(HttpServletRequest request, HttpServletResponse response) throws Exception {
-=======
     /**
      * 验证码接口
      */
-    @RequestMapping(value = "/verifyCode")
+    @RequestMapping(value = "/verifyCode", method = RequestMethod.GET)
     public void verifyCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
->>>>>>> 8f6d6d9e49dc8b8ffcc8824a71c1bbe6bc7c1872
         checkImgservice.execute(request, response);
     }
     //TODO 退出登陆接口
