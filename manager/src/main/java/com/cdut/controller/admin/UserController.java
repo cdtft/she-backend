@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
  * Created by king on 2017/9/11.
  */
 @RestController
-@RequestMapping("v1/api")
 public class UserController {
 
     @Autowired
@@ -31,7 +30,7 @@ public class UserController {
     /**
      * 用户登陆方法,执行成功后data中封装了UserToken信息
      */
-    @RequestMapping(value = "/session", method = RequestMethod.POST)
+    @RequestMapping(value = "v1/api/session", method = RequestMethod.POST)
     public JsonResult login(@RequestBody UserRequestVo vo) {
 
         if (StringUtils.isBlank(vo.getUsername()) || StringUtils.isBlank(vo.getPassword())) {
@@ -47,7 +46,7 @@ public class UserController {
      * @return
      */
     @Authorization
-    @RequestMapping(value = "/session", method = RequestMethod.DELETE)
+    @RequestMapping(value = "v1/api/session", method = RequestMethod.DELETE)
     public JsonResult logout(@LoginUser User loginUser) {
         return userService.logout(loginUser);
     }
@@ -58,7 +57,7 @@ public class UserController {
      * @param vo
      * @return
      */
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    @RequestMapping(value = "v1/api/user", method = RequestMethod.POST)
     public JsonResult register(@RequestBody UserRequestVo vo) {
         return userService.register(vo);
     }
@@ -69,7 +68,7 @@ public class UserController {
      * @param username user表主键
      * @return
      */
-    @RequestMapping(value = "/user/{username}", method = RequestMethod.POST)
+    @RequestMapping(value = "v1/api/user/{username}", method = RequestMethod.POST)
     public JsonResult checkUsername(@PathVariable("username") String username) {
         return userService.usernameIsExist(username);
     }
@@ -82,7 +81,7 @@ public class UserController {
      * @return
      */
     @Authorization
-    @RequestMapping(value = "/user/{newPassword}", method = RequestMethod.PUT)
+    @RequestMapping(value = "v1/api/user/{newPassword}", method = RequestMethod.PUT)
     public JsonResult resetPassword(@LoginUser User user, @PathVariable("newPassword") String newPassword) {
         return userService.resetPassword(user.getId(), newPassword);
     }
@@ -94,7 +93,7 @@ public class UserController {
      * @return
      */
     @Authorization
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @RequestMapping(value = "v1/api/users", method = RequestMethod.GET)
     public JsonResult findAll() {
         return userService.findAll();
     }
@@ -102,7 +101,7 @@ public class UserController {
     /**
      * 验证码接口
      */
-    @RequestMapping(value = "/verifyCode", method = RequestMethod.GET)
+    @RequestMapping(value = "v1/api/verifyCode", method = RequestMethod.GET)
     public void verifyCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
         checkImgService.execute(request, response);
     }

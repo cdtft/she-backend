@@ -12,13 +12,16 @@ import com.cdut.dao.redis.ro.admin.UserToken;
 import com.cdut.transform.User2UserRespVo;
 import com.cdut.transform.UserReqVo2User;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -41,11 +44,12 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
             return new JsonResult("密码或用户名不正确", ResultStatus.FAIL.getStatus());
         }
         logger.info("创建token信息");
-        UserToken token = tokenManager.createTokenUser(user.getId());
-        String authorization = String.valueOf(token.getId()) +
-                "_" +
-                token.getToken();
-        return new JsonResult(authorization, "登陆成功", ResultStatus.SUCCESS.getStatus());
+        UserToken tokenModel = tokenManager.createTokenUser(user.getId());
+        Map<String, Object> tokenInfo = Maps.newHashMap();
+        tokenInfo.put("userId", tokenModel.getId().toString());
+        tokenInfo.put("authorization", tokenModel.getToken());
+        tokenInfo.put("createTime", new Timestamp(System.currentTimeMillis()));
+        return new JsonResult(tokenInfo, "登陆成功", ResultStatus.SUCCESS.getStatus());
     }
 
     @Override

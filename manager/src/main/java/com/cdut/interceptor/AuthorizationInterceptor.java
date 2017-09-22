@@ -32,16 +32,19 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         }
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
-        String authorization = request.getHeader("authorization");
-        UserToken userToken = tokenManager.getToken(authorization);
-        if (tokenManager.checkToken(userToken)) {
-            //token解析成功，将userId放在request中
-            request.setAttribute("userId", userToken.getId());
-        }
         //验证失败,返回401未授权(controller中的方法使用的Authorization注解)
         if (method.getAnnotation(Authorization.class) != null) {
-            response.setStatus (HttpServletResponse.SC_UNAUTHORIZED);
-            return false;
+            String authorization = request.getHeader("authorization");
+            UserToken userToken = tokenManager.getToken(authorization);
+            if (userToken == null) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return false;
+            }
+            if (tokenManager.checkToken(userToken)) {
+                //token解析成功，将userId放在request中
+                request.setAttribute("userId", userToken.getId());
+                return true;
+            }
         }
         return true;
     }
