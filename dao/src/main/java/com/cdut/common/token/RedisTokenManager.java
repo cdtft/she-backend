@@ -12,6 +12,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -43,6 +44,7 @@ public class RedisTokenManager implements TokenManager {
         User loginUser = userRepository.findById(userId);
         Map<String, Object> claims = Maps.newHashMap();
         claims.put("ID", userId);
+        claims.put("CREATE_TIME", new Date(System.currentTimeMillis()));
         String token = JWTUtil.generateToken(claims);
         UserToken userToken = new UserToken(userId, token);
         //todo 将时间提取出来

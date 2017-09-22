@@ -44,6 +44,9 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
                 //token解析成功，将userId放在request中
                 request.setAttribute("userId", userToken.getId());
                 return true;
+            } else {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return false;
             }
         }
         return true;
