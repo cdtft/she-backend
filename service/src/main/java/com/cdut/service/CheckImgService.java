@@ -1,7 +1,7 @@
 package com.cdut.service;
 
 
-import org.springframework.stereotype.*;
+import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -9,6 +9,7 @@ import java.util.*;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 import static org.springframework.boot.logging.LoggingSystem.NONE;
@@ -16,9 +17,10 @@ import static org.springframework.boot.logging.LoggingSystem.NONE;
 /**
  * Created by xieqiang_daye on 2017/9/13.
  */
-@org.springframework.stereotype.Component
+@Component
 public class CheckImgService {
-    public String execute(HttpServletRequest request,HttpServletResponse response) throws Exception {
+
+    public String execute(HttpServletRequest request, HttpServletResponse response, HttpSession httpSession) throws Exception {
         int width = 100;//确定宽高
         int height = 36;
         int codeLength = 4;
@@ -73,9 +75,7 @@ public class CheckImgService {
         }
 
         // 将生成的字母存入到session中
-        //ServletActionContext.getRequest().getSession()
-               // .setAttribute("checkcode", sb.toString());
-        request.setAttribute("varifycode",sb.toString());
+        httpSession.setAttribute("verifyCode", sb.toString());
         // 步骤五 绘制干扰线
         graphics.setColor(getRandColor(160, 200));
         int x1;
@@ -92,16 +92,15 @@ public class CheckImgService {
 
         // 将上面图片输出到浏览器 ImageIO
         graphics.dispose();// 释放资源
-        ImageIO.write(bufferedImage, "jpg",response.getOutputStream());
+        ImageIO.write(bufferedImage, "jpg", response.getOutputStream());
         return NONE;
     }
+
     /**
      * 取其某一范围的color
      *
-     * @param fc
-     *            int 范围参数1
-     * @param bc
-     *            int 范围参数2
+     * @param fc int 范围参数1
+     * @param bc int 范围参数2
      * @return Color
      */
     private Color getRandColor(int fc, int bc) {

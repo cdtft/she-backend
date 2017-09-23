@@ -51,5 +51,6 @@ public interface UserService {
      */
     JsonResult findAll();
 
+    JsonResult checkVerifyCode(String code, String correctCode);
 
 }

@@ -9,17 +9,21 @@ import com.cdut.dao.mysql.vo.admin.UserRequestVo;
 import com.cdut.service.CheckImgService;
 import com.cdut.service.admin.UserService;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by king on 2017/9/11.
  */
 @RestController
 public class UserController {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
@@ -42,6 +46,7 @@ public class UserController {
 
     /**
      * 退出登陆
+     *
      * @param loginUser
      * @return
      */
@@ -99,11 +104,30 @@ public class UserController {
     }
 
     /**
-     * 验证码接口
+     * 获取验证码图片
      */
     @RequestMapping(value = "v1/api/verifyCode", method = RequestMethod.GET)
-    public void verifyCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        checkImgService.execute(request, response);
+    public void getVerifyCode(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+        checkImgService.execute(request, response, session);
+    }
+
+    /**
+     * 验证用户输入的验证码是否正确
+     * @param code
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "v1/api/checkImg/{customerVerifyCode}", method = RequestMethod.POST)
+    public JsonResult checkVerifyCode(@PathVariable("customerVerifyCode") String code, HttpSession session) {
+
+        String correct;
+        try {
+            correct = session.getAttribute("verifyCode").toString();
+        } catch (Exception e) {
+            logger.error("从session中获取VerifyCode失败");
+            return new JsonResult(Boolean.FALSE, "从session中获取VerifyCode失败", "500");
+        }
+        return userService.checkVerifyCode(code, correct);
     }
 
 }

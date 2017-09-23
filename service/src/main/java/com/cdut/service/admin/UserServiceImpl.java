@@ -48,7 +48,6 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
         Map<String, Object> tokenInfo = Maps.newHashMap();
         tokenInfo.put("userId", tokenModel.getId().toString());
         tokenInfo.put("authorization", tokenModel.getToken());
-        tokenInfo.put("createTime", new Timestamp(System.currentTimeMillis()));
         return new JsonResult(tokenInfo, "登陆成功", ResultStatus.SUCCESS.getStatus());
     }
 
@@ -88,5 +87,13 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
         List<User> users = userRepository.findAll();
         List<UserRespVo> userRespVos = Lists.transform(users, new User2UserRespVo());
         return new JsonResult(userRespVos, "获取所用的用户", "200");
+    }
+
+    @Override
+    public JsonResult checkVerifyCode(String code, String correctCode) {
+        if (code.equals(correctCode)) {
+            return new JsonResult(Boolean.TRUE, "验证成功", "200");
+        }
+        return new JsonResult(Boolean.FALSE, "验证失败", "200");
     }
 }

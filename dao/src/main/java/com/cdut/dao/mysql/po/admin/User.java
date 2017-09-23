@@ -1,10 +1,8 @@
 package com.cdut.dao.mysql.po.admin;
 
-import com.cdut.common.entity.BaseEntity;
 import com.cdut.common.myenum.CdutCommonStatus;
 import com.cdut.dao.mysql.po.product.ProductPo;
 
-import javax.annotation.Nullable;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -25,7 +23,7 @@ public class User implements Serializable {
     @Column(length = 40)
     private String username;
 
-    @Column(length = 40)
+    @Column
     private String password;
 
     @Column(length = 40)
