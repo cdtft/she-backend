@@ -91,7 +91,7 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
 
     @Override
     public JsonResult checkVerifyCode(String code, String correctCode) {
-        if (code.equals(correctCode)) {
+        if (code.equalsIgnoreCase(correctCode)) {
             return new JsonResult(Boolean.TRUE, "验证成功", "200");
         }
         return new JsonResult(Boolean.FALSE, "验证失败", "200");
