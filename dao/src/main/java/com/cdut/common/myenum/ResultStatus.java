@@ -8,20 +8,27 @@ package com.cdut.common.myenum;
  */
 public enum ResultStatus {
 
-    SUCCESS("0"),
-    FAIL("500");
+    SUCCESS(200),
+    CREATED(201),
+    ACCEPTED(202),
+    NO_CONTENT(204),
+    INVALID_REQUEST(400),
+    UNAUTHORIZED(401),
+    FORBIDDEN(403),
+    NOT_FOUND(404),
+    SERVICE_ERROR(500);
 
-    ResultStatus(String status){
-        this.status = status;
+    ResultStatus(int value){
+        this.value = value;
     }
 
-    private String status;
+    private int value;
 
-    public String getStatus() {
-        return status;
+    public int getStatus() {
+        return value;
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        this.value = value;
     }
 }

@@ -39,7 +39,7 @@ public class UserController {
 
         if (StringUtils.isBlank(vo.getUsername()) || StringUtils.isBlank(vo.getPassword())) {
 
-            return new JsonResult("用户名或密码为空", ResultStatus.FAIL.getStatus());
+            return new JsonResult("用户名或密码为空", ResultStatus.SUCCESS);
         }
         return userService.login(vo.getUsername(), vo.getPassword());
     }
@@ -125,7 +125,7 @@ public class UserController {
             correct = session.getAttribute("verifyCode").toString();
         } catch (Exception e) {
             logger.error("从session中获取VerifyCode失败");
-            return new JsonResult(Boolean.FALSE, "从session中获取VerifyCode失败", "500");
+            return new JsonResult(Boolean.FALSE, "从session中获取VerifyCode失败", ResultStatus.SUCCESS);
         }
         return userService.checkVerifyCode(code, correct);
     }

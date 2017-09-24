@@ -41,29 +41,29 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
 
         User user = userRepository.findByUsername(username);
         if (user == null || !StringUtils.equals(user.getPassword(), password)) {
-            return new JsonResult("密码或用户名不正确", ResultStatus.FAIL.getStatus());
+            return new JsonResult("密码或用户名不正确", ResultStatus.FORBIDDEN);
         }
         logger.info("创建token信息");
         UserToken tokenModel = tokenManager.createTokenUser(user.getId());
         Map<String, Object> tokenInfo = Maps.newHashMap();
         tokenInfo.put("userId", tokenModel.getId().toString());
         tokenInfo.put("authorization", tokenModel.getToken());
-        return new JsonResult(tokenInfo, "登陆成功", ResultStatus.SUCCESS.getStatus());
+        return new JsonResult(tokenInfo, "登陆成功", ResultStatus.SUCCESS);
     }
 
     @Override
     public JsonResult logout(User user) {
         tokenManager.deleteToken(user.getId());
-        return new JsonResult("用户退出登陆", "200");
+        return new JsonResult("用户退出登陆", ResultStatus.SUCCESS);
     }
 
     @Override
     public JsonResult usernameIsExist(String username) {
         User user =  userRepository.findOne(username);
         if (user == null) {
-            return new JsonResult(null, "该用户名可用", ResultStatus.SUCCESS.getStatus());
+            return new JsonResult(null, "该用户名可用", ResultStatus.SUCCESS);
         }
-        return new JsonResult(null, "该用户名已存在", ResultStatus.FAIL.getStatus());
+        return new JsonResult(null, "该用户名已存在", ResultStatus.FORBIDDEN);
     }
 
     @Transactional
@@ -72,28 +72,28 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
         User user = new UserReqVo2User().apply(vo);
         user.setId(idService.nextId());
         userRepository.save(user);
-        return new JsonResult(null, "注册成功", "200");
+        return new JsonResult(null, "注册成功", ResultStatus.CREATED);
     }
 
     @Transactional
     @Override
     public JsonResult resetPassword(Long userId, String newPassword) {
         userRepository.updatePasswordById(userId, newPassword);
-        return new JsonResult(null, "密码修改成功", "200");
+        return new JsonResult(null, "密码修改成功", ResultStatus.CREATED);
     }
 
     @Override
     public JsonResult findAll() {
         List<User> users = userRepository.findAll();
         List<UserRespVo> userRespVos = Lists.transform(users, new User2UserRespVo());
-        return new JsonResult(userRespVos, "获取所用的用户", "200");
+        return new JsonResult(userRespVos, "获取所用的用户", ResultStatus.SUCCESS);
     }
 
     @Override
     public JsonResult checkVerifyCode(String code, String correctCode) {
         if (code.equalsIgnoreCase(correctCode)) {
-            return new JsonResult(Boolean.TRUE, "验证成功", "200");
+            return new JsonResult(Boolean.TRUE, "验证成功", ResultStatus.SUCCESS);
         }
-        return new JsonResult(Boolean.FALSE, "验证失败", "200");
+        return new JsonResult(Boolean.FALSE, "验证失败", ResultStatus.SUCCESS);
     }
 }
