@@ -19,9 +19,9 @@ public class JsonResult {
     private String msg;
 
     /**
-     * 状态 code值:成功状态值为0，失败为其他值
+     * 状态 code值
      */
-    private ResultStatus code;
+    private int code;
 
     public JsonResult() {
 
@@ -30,12 +30,12 @@ public class JsonResult {
     public JsonResult(Object data, String msg, ResultStatus code) {
         this.data = data;
         this.msg = msg;
-        this.code = code;
+        this.code = code.getStatus();
     }
 
     public JsonResult(String msg, ResultStatus code) {
         this.msg = msg;
-        this.code = code;
+        this.code = code.getStatus();
     }
 
     public Object getData() {
@@ -46,11 +46,11 @@ public class JsonResult {
         this.data = data;
     }
 
-    public ResultStatus getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(ResultStatus code) {
+    public void setCode(int code) {
         this.code = code;
     }
 

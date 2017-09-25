@@ -2,8 +2,11 @@ package com.cdut.dao.mysql.po.admin;
 
 import com.cdut.common.myenum.CdutCommonStatus;
 import com.cdut.dao.mysql.po.product.ProductPo;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
@@ -21,9 +24,13 @@ public class User implements Serializable {
 
     @Id
     @Column(length = 40)
+    @NotBlank
+    @NotNull
     private String username;
 
     @Column
+    @NotBlank
+    @NotNull
     private String password;
 
     @Column(length = 40)

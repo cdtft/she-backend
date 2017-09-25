@@ -59,20 +59,38 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
 
     @Override
     public JsonResult usernameIsExist(String username) {
+
+        if (StringUtils.isBlank(username)) {
+            logger.info("校验有户名为空");
+            return new JsonResult("校验用户名为空", ResultStatus.INVALID_REQUEST);
+        }
         User user =  userRepository.findOne(username);
         if (user == null) {
-            return new JsonResult(null, "该用户名可用", ResultStatus.SUCCESS);
+            return new JsonResult("该用户名可用", ResultStatus.SUCCESS);
         }
-        return new JsonResult(null, "该用户名已存在", ResultStatus.FORBIDDEN);
+        return new JsonResult("该用户名已存在", ResultStatus.FORBIDDEN);
     }
 
     @Transactional
     @Override
     public JsonResult register(UserRequestVo vo) {
+        if (StringUtils.isBlank(vo.getUsername())) {
+            logger.info("register 用户提交的用户名为空[{}]", vo);
+            return new JsonResult(null, "用户名不能为空", ResultStatus.INVALID_REQUEST);
+        }
+        if (StringUtils.isBlank(vo.getPassword())) {
+            logger.info("register 用户提交的密码为空[{}]", vo);
+            return new JsonResult("密码不能为空", ResultStatus.INVALID_REQUEST);
+        }
+        User existUser = userRepository.findByUsername(vo.getUsername());
+        if (existUser != null) {
+            logger.info("该用户已经存在[{}]", vo.getUsername());
+            return new JsonResult("该用户名已经存在", ResultStatus.INVALID_REQUEST);
+        }
         User user = new UserReqVo2User().apply(vo);
         user.setId(idService.nextId());
         userRepository.save(user);
-        return new JsonResult(null, "注册成功", ResultStatus.CREATED);
+        return new JsonResult("注册成功", ResultStatus.CREATED);
     }
 
     @Transactional
