@@ -1,8 +1,9 @@
 package com.cdut.dao.mysql.po.admin;
 
-import com.cdut.common.entity.BaseEntity;
 import com.cdut.common.entity.BasePo;
 import com.cdut.common.entity.Identifiable;
+import com.cdut.common.myenum.CdutCommonStatus;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import java.util.List;
@@ -28,6 +29,14 @@ public class Permission extends BasePo<Long> implements Identifiable<Long> {
     @Column(length = 40)
     private String name;
 
+    //TODO 确定正则匹配
+    /**
+     * 权限字符
+     */
+    @Column
+    @NotBlank
+    private String symbol;
+
     /**
      * 描述
      */
@@ -43,6 +52,10 @@ public class Permission extends BasePo<Long> implements Identifiable<Long> {
             uniqueConstraints = {@UniqueConstraint(columnNames = {"permission_id", "role_id"})}
     )
     private List<Role> roles;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private CdutCommonStatus status = CdutCommonStatus.ENABLE;
 
     @Override
     public Long getId() {
@@ -76,5 +89,21 @@ public class Permission extends BasePo<Long> implements Identifiable<Long> {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public CdutCommonStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CdutCommonStatus status) {
+        this.status = status;
     }
 }

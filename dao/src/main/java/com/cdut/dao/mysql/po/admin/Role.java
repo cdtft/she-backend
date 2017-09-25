@@ -3,6 +3,7 @@ package com.cdut.dao.mysql.po.admin;
 import com.cdut.common.entity.BaseEntity;
 import com.cdut.common.entity.BasePo;
 import com.cdut.common.entity.Identifiable;
+import com.cdut.common.myenum.CdutCommonStatus;
 
 import javax.persistence.*;
 import java.util.List;
@@ -46,6 +47,10 @@ public class Role extends BasePo<Long> implements Identifiable<Long> {
     )
     private List<Permission> permissions;
 
+    @Column
+    @Enumerated(EnumType.STRING)
+    private CdutCommonStatus status = CdutCommonStatus.ENABLE;
+
     @Override
     public Long getId() {
         return id;
@@ -78,5 +83,13 @@ public class Role extends BasePo<Long> implements Identifiable<Long> {
 
     public void setPermissions(List<Permission> permissions) {
         this.permissions = permissions;
+    }
+
+    public CdutCommonStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CdutCommonStatus status) {
+        this.status = status;
     }
 }
