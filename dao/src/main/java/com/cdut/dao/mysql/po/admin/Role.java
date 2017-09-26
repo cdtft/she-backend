@@ -1,6 +1,5 @@
 package com.cdut.dao.mysql.po.admin;
 
-import com.cdut.common.entity.BaseEntity;
 import com.cdut.common.entity.BasePo;
 import com.cdut.common.entity.Identifiable;
 import com.cdut.common.myenum.CdutCommonStatus;

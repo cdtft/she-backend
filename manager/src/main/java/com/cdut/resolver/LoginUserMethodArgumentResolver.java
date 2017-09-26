@@ -33,7 +33,7 @@ public class LoginUserMethodArgumentResolver implements HandlerMethodArgumentRes
     public boolean supportsParameter(MethodParameter methodParameter) {
 
         if (methodParameter.getParameterType().isAssignableFrom(User.class) &&
-                methodParameter.hasMethodAnnotation(LoginUser.class)) {
+                methodParameter.hasParameterAnnotation(LoginUser.class)) {
             return true;
         }
         return false;

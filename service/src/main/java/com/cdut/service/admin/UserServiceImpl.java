@@ -66,9 +66,9 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
         }
         User user =  userRepository.findOne(username);
         if (user == null) {
-            return new JsonResult("该用户名可用", ResultStatus.SUCCESS);
+            return new JsonResult(Boolean.FALSE ,"该用户名可用", ResultStatus.SUCCESS);
         }
-        return new JsonResult("该用户名已存在", ResultStatus.FORBIDDEN);
+        return new JsonResult(Boolean.TRUE, "该用户名已存在", ResultStatus.FORBIDDEN);
     }
 
     @Transactional

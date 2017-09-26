@@ -3,6 +3,7 @@ package com.cdut.dao.mysql.repository.admin;
 import com.cdut.common.repository.CommonJpaRepository;
 import com.cdut.dao.mysql.po.admin.User;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,7 @@ public interface UserRepository extends CommonJpaRepository<User, String>, UserD
 
     User findById(Long id);
 
-    @Query("update User set password = :password where id = :id")
+    @Modifying
+    @Query("update User u set u.password = :password where u.id = :id")
     void updatePasswordById(@Param("id") Long id, @Param("password") String password);
 }
