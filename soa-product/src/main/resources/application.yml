@@ -1,0 +1,16 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka/
+
+server:
+  port: 8762
+
+spring:
+  application:
+    name: soa-product
+
+#开启断路器，默认是关闭的。
+feign:
+  hystrix:
+    enabled: true

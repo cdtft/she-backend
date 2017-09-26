@@ -37,3 +37,12 @@ jedis:
       maxTotal: 100
       maxIdle: 10
       maxWaitMillis: 100000
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka/
+    registry-fetch-interval-seconds: 1
+  instance:
+    prefer-ip-address: true
+  server:
+    eviction-interval-timer-in-ms: 1000

@@ -1,6 +1,7 @@
 package com.cdut.service.admin;
 
 import com.cdut.common.entity.JsonResult;
+import com.cdut.dao.mysql.po.admin.User;
 import com.cdut.dao.mysql.vo.admin.UserRequestVo;
 
 /**
@@ -16,6 +17,13 @@ public interface UserService {
      * @return
      */
     JsonResult login(String username, String password);
+
+    /**
+     * 推出登陆
+     * @param user
+     * @return
+     */
+    JsonResult logout(User user);
 
     /**
      * 验证用户名是否被注册
@@ -35,7 +43,14 @@ public interface UserService {
      * 修改密码
      * @return
      */
-    JsonResult resetPassword(String userId, String newPassword);
+    JsonResult resetPassword(Long userId, String newPassword);
 
+    /**
+     * 查询所有user
+     * @return
+     */
+    JsonResult findAll();
+
+    JsonResult checkVerifyCode(String code, String correctCode);
 
 }

@@ -1,13 +1,19 @@
 package com.cdut.common.token;
 
+import com.cdut.common.security.JWTUtil;
+import com.cdut.dao.mysql.po.admin.User;
+import com.cdut.dao.mysql.repository.admin.UserRepository;
 import com.cdut.dao.redis.ro.admin.UserToken;
+import com.google.common.collect.Maps;
+import io.jsonwebtoken.Claims;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
+import java.util.Date;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -23,6 +29,9 @@ public class RedisTokenManager implements TokenManager {
     private RedisTemplate redisTemplate;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     public RedisTokenManager(RedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
         redisTemplate.setKeySerializer(new JdkSerializationRedisSerializer());
@@ -32,11 +41,15 @@ public class RedisTokenManager implements TokenManager {
     public UserToken createTokenUser(Long userId) {
         logger.info("为用户生成token信息");
         //使用uuid作为源token信息
-        String token = UUID.randomUUID().toString().replace("-", "");
+        User loginUser = userRepository.findById(userId);
+        Map<String, Object> claims = Maps.newHashMap();
+        // TODO 加入用户的角色权限信息
+        claims.put("ID", userId);
+        claims.put("CREATE_TIME", new Date(System.currentTimeMillis()));
+        String token = JWTUtil.generateToken(claims);
         UserToken userToken = new UserToken(userId, token);
-        //存到redis并设置过期时间72小时过期
         //todo 将时间提取出来
-        redisTemplate.boundValueOps(userId).set(token, 72, TimeUnit.HOURS);
+        redisTemplate.boundValueOps(userId).set(token, 30, TimeUnit.MINUTES);
         return userToken;
     }
 
@@ -45,28 +58,35 @@ public class RedisTokenManager implements TokenManager {
         if (tokenUser == null) {
             return false;
         }
-        String token = (String) redisTemplate.boundValueOps(tokenUser.getId()).get();
-        if(token == null || !tokenUser.getToken().equals(token)){
+        try {
+            String token = (String) redisTemplate.boundValueOps(tokenUser.getId()).get();
+            if (token == null || !tokenUser.getToken().equals(token)) {
+                return false;
+            }
+            //验证成功存重新入redis延长token信息过期时间
+            redisTemplate.boundValueOps(tokenUser.getId()).expire(30, TimeUnit.MINUTES);
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
-        //验证成功存重新入redis延长token信息过期时间
-        redisTemplate.boundValueOps(tokenUser.getId()).expire( 72, TimeUnit.HOURS);
         return true;
     }
 
     @Override
     public UserToken getToken(String authentication) {
 
-        if (authentication == null || authentication.length() == 0) {
-            return null;
+        try {
+            Claims claims = JWTUtil.getClaimsFromToken(authentication);
+            if (claims == null) {
+                return null;
+            }
+            Long userId = Long.parseLong(claims.get("ID").toString());
+            return new UserToken(userId, authentication);
+        } catch (Exception e) {
+            logger.info("获取UserToken失败");
+            e.printStackTrace();
         }
-        String[] param = authentication.split("_");
-        if (param.length != 2) {
-            return null;
-        }
-        long userId = Long.parseLong(param[0]);
-        String token = param[1];
-        return new UserToken(userId, token);
+        return null;
     }
 
     @Override

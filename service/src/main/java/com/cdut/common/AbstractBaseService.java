@@ -1,8 +1,8 @@
 package com.cdut.common;
 
-import com.cdut.common.token.TokenManager;
 import com.cdut.service.IdService;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public abstract class AbstractBaseService {
 
-    protected Logger logger = Logger.getLogger(this.getClass());
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     protected IdService idService;
