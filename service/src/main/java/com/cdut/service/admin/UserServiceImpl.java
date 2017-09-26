@@ -15,6 +15,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +30,9 @@ import java.util.Map;
  */
 @Service
 public class UserServiceImpl extends AbstractBaseService implements UserService {
+
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @Autowired
     private UserRepository userRepository;
@@ -48,6 +52,7 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
         Map<String, Object> tokenInfo = Maps.newHashMap();
         tokenInfo.put("userId", tokenModel.getId().toString());
         tokenInfo.put("authorization", tokenModel.getToken());
+        applicationEventPublisher.publishEvent(user);
         return new JsonResult(tokenInfo, "登陆成功", ResultStatus.SUCCESS);
     }
 

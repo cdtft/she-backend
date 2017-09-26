@@ -43,6 +43,7 @@ public class RedisTokenManager implements TokenManager {
         //使用uuid作为源token信息
         User loginUser = userRepository.findById(userId);
         Map<String, Object> claims = Maps.newHashMap();
+        // TODO 加入用户的角色权限信息
         claims.put("ID", userId);
         claims.put("CREATE_TIME", new Date(System.currentTimeMillis()));
         String token = JWTUtil.generateToken(claims);
