@@ -14,7 +14,9 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
 @EnableHystrix
 @EnableHystrixDashboard
 public class ServiceFeignApplication {
-
+	/*
+	* 断路器，服务消费者
+	* */
 	public static void main(String[] args) {
 
 		SpringApplication.run(ServiceFeignApplication.class, args);

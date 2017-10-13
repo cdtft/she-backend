@@ -64,7 +64,7 @@ public class User implements Serializable {
     private List<Role> roles;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-    private List<ProductPo> productPoList;
+    private List<ProductPo> productPoList; //产品
 
 
     public Long getId() {

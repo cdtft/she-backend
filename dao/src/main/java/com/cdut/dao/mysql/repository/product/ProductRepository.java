@@ -12,4 +12,18 @@ import org.springframework.stereotype.Repository;
 public interface ProductRepository extends JpaRepository<ProductPo, Long>, ProductDao,JpaSpecificationExecutor<ProductPo> {
 
     ProductPo findByName(String name);
+    /*
+    * 根据商品名称查询商品
+    * */
+    ProductPo findById(Long id);
+
+    /*
+    * 根据id删除商品
+    * */
+    void  deleteById(Long proId);
+
+    /*
+    * 根据名称删除商品
+    * */
+    void  deleteByNmae(String name);
 }

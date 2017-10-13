@@ -7,7 +7,9 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 @EnableEurekaServer
 @SpringBootApplication
 public class CenterServiceApplication {
-
+    /*
+    * 服务注册和发现模块
+    * */
 	public static void main(String[] args) {
 
 		SpringApplication.run(CenterServiceApplication.class, args);

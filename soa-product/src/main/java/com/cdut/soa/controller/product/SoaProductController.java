@@ -12,7 +12,6 @@ public class SoaProductController {
 
     @RequestMapping("test")
     public String test() {
-
         return "hello";
     }
 }

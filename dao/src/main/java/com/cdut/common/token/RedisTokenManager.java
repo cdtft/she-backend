@@ -32,7 +32,7 @@ public class RedisTokenManager implements TokenManager {
     private UserRepository userRepository;
 
     @Autowired
-    public RedisTokenManager(RedisTemplate redisTemplate) {
+    public RedisTokenManager(RedisTemplate redisTemplate) {//缓存
         this.redisTemplate = redisTemplate;
         redisTemplate.setKeySerializer(new JdkSerializationRedisSerializer());
     }

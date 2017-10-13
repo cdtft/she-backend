@@ -6,7 +6,7 @@ package com.cdut.common.myenum;
  * 500：服务器内部错误
  * Created by king on 2017/9/11.
  */
-public enum ResultStatus {
+public enum ResultStatus {//枚举类型
 
     SUCCESS(200),
     CREATED(201),
